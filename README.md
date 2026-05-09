@@ -7,7 +7,8 @@ When asked, "Play that video of our daughter's first steps", I don't know where 
 
 Does it sound familiar? :smile:
 
-Fortunately, the time has passed, and I live in the AI age now. Using Codex with my ChatGPT Plus subscription and spending $33 on GPT 5.4/5.5 API tokens (May 2026 prices), I created an app that, when I enter "a toddler is walking down the hallway and falls," shows the video of my daughter's first steps as the very first search result.  
+Fortunately, the time has passed, and I live in the AI age now. Using Codex with my ChatGPT Plus subscription and spending $33 on GPT 5.4/5.5 API tokens (May 2026 prices), I created an app that, when I enter "a toddler is walking down the hallway and falls," shows the video of my daughter's first steps as the very first search result.
+
 The visual language model processing is done as a batch job once and creates offline data, along with an Electron app Windows binaries folder. I can then copy the video archive and the app data folder to a removable drive and run the app from any Windows computer (it doesn't even need an internet connection).
 
 ## Intended use of this repository
@@ -19,11 +20,7 @@ Don't get me wrong. A sufficiently IT-knowledgeable person can use this reposito
 
 I recommend that you install an AI agent of your choice on a Windows machine and give it a prompt like this:
 
-```
-Study the repository https://github.com/viktor-nikolov/video-library-smart-search. I want to generate this video library browsing app on this PC. Clone the repository and run the necessary scripts for me. My video files are in folders <FILL FOLDER HERE> and <FILL ANOTHER FOLDER IF NEEDED>. Note that the scripts in the video-library-smart-search repository generate the app in Czech. I want the app (and the smart search feature) in <YOUR DESIRED LANGUAGE>, so you need to modify the scripts accordingly. Ask me if you need any additional information or a decision.
-```
-
-
+`Study the repository https://github.com/viktor-nikolov/video-library-smart-search. I want to generate this video library browsing app on this PC. Clone the repository and run the necessary scripts for me. My video files are in folders <FILL FOLDER HERE> and <FILL ANOTHER FOLDER IF NEEDED>. Note that the scripts in the video-library-smart-search repository generate the app in Czech. I want the app (and the smart search feature) in <YOUR DESIRED LANGUAGE>, so you need to modify the scripts accordingly. Ask me if you need any additional information or a decision.`
 
 ## What This Project Builds
 
@@ -33,6 +30,12 @@ This repository contains two generator scripts for turning a local video archive
 - `ui_generator.py` reads one or more description JSON files and produces a portable Electron app with calendar browsing, clip thumbnails, day summaries, and local semantic search.
 
 The scripts in this repository are intentionally file-based: the video archive stays on disk, metadata is JSON, thumbnails and embeddings are generated into the UI output folder, and the final app can run without a database server.
+
+> [!IMPORTANT]
+>
+> I made the scripts to generate text descriptions and the app UI in Czech, my mother tongue. Changing this to a language of your choice will be a trivial task for your AI agent.
+>
+> Smart search will work with text descriptions in almost any language. A locally run model used to generate numeric embeddings is multilingual (see list of supported languages [here](https://huggingface.co/intfloat/multilingual-e5-small/blob/main/README.md)).
 
 ## Screenshots of the generated application
 
@@ -56,7 +59,9 @@ The solution has two main stages.
 
 First, the description generator walks a video folder recursively, extracts representative frames with OpenCV/Pillow, submits the image payloads to the configured model, validates the returned JSON, and appends one record per video. Each record includes the relative path, processing status, model metadata, timing, token usage, duration, frame timestamps, and the two VLM-produced text fields expected by the downstream UI.
 
-Second, the UI generator merges one or more archive JSON files into a normalized library model. It computes stable video IDs, groups clips by calendar day, creates thumbnails with `ffmpeg`, optionally asks OpenAI for per-day summaries, creates local embeddings with Transformers.js, and writes a generated Electron app into the configured output directory.
+Second, the UI generator merges one or more archive JSON files into a normalized library model. It computes stable video IDs, groups clips by calendar day, creates thumbnails with `ffmpeg`, asks OpenAI for per-day summaries, creates local embeddings with Transformers.js, and writes a generated Electron app into the configured output directory.
+
+For smart search, the UI generator converts each video’s headline, description, archive label, date, and path into a numeric embedding. These embeddings are generated locally with [Transformers.js](https://github.com/huggingface/transformers.js) using [intfloat/multilingual-e5-small](https://huggingface.co/intfloat/multilingual-e5-small), a multilingual text embedding model with 384-dimensional vectors. At runtime, the Electron app embeds the user’s search query the same way and ranks videos by vector similarity, so searches can match meaning rather than only exact words. The embedding files are stored with the generated app, so search works offline after the generation step.
 
 The generated app is static and local-first. At runtime, it reads generated JSON and binary embedding files from its own `data` folder, opens videos through local filesystem paths, and performs semantic search in the Electron renderer without calling a hosted search service.
 
