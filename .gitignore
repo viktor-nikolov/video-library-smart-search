@@ -1,0 +1,28 @@
+__pycache__/
+*.py[cod]
+*.bak
+*.log
+*.lock
+.env
+
+# Full generated description outputs can contain private filenames and descriptions.
+/video_descriptions.json
+/*_video_descriptions.json
+!sample_data/
+!sample_data/video_descriptions.json
+
+# Debug and generated media/UI artifacts.
+debug_vlm_frames/
+sample_videos/
+__UI_data__/
+app/
+data/
+cache/
+thumbnails/
+node_modules/
+transformers_cache/
+
+# OS/editor noise.
+.DS_Store
+Thumbs.db
+.vscode/
