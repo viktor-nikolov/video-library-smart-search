@@ -7,7 +7,7 @@ When asked, "Play that video of our daughter's first steps", I don't know where 
 
 Does it sound familiar? :smile:
 
-Fortunately, the time has passed, and I live in the AI age now. Using Codex with my ChatGPT Plus subscription and spending $33 on GPT API tokens (May 2026 prices), I created an app that, when I enter "a toddler is walking down the hallway and falls," shows the video of my daughter's first steps as the top search result (yes, this was an actual test case ✅).
+Fortunately, the time has passed, and I live in the AI age now. Using Codex with my ChatGPT Plus subscription and spending $33 on GPT API tokens to process my video archive (May 2026 prices), I created an app that, when I enter "a toddler is walking down the hallway and falls," shows the video of my daughter's first steps as the top search result (yes, this was an actual test case ✅).
 
 Even with AI, it wasn't a "one evening" project. I consider it worth sharing.
 
