@@ -11,12 +11,12 @@ Fortunately, the time has passed, and I live in the AI age now. Using Codex with
 
 Even with AI, it wasn't a "one evening" project. I consider it worth sharing.
 
-The visual language model processing is done as a batch job once, creating offline data and an Electron app Windows binaries folder. I can then copy the video archive and the app folder to a removable drive and run the app from any Windows computer (it doesn't even need an internet connection).
+The visual language model processing is done as a batch job once (and can be re-run incrementally), creating offline data and an Electron app Windows binaries folder. I can then copy the video archive and the app folder to a removable drive and run the app from any Windows computer (it doesn't even need an internet connection).
 
 ## Intended use of this repository
 
 The SW in this repository is not an application you install with one click, run, and configure in the UI.  
-What I'm sharing here is a tested, working concept that I created using an AI agent and is best used by another AI agent.
+What I'm sharing here is a tested, working, ready-for-big-batches concept that I created using an AI agent and is best used by another AI agent.
 
 Don't get me wrong. A sufficiently IT-knowledgeable person can use this repository manually. But I think it's unnecessarily difficult. There are two very detailed Product Requirement Documents. They are to provide agent memory for your AI agent session.
 
