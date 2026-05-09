@@ -7,9 +7,11 @@ When asked, "Play that video of our daughter's first steps", I don't know where 
 
 Does it sound familiar? :smile:
 
-Fortunately, the time has passed, and I live in the AI age now. Using Codex with my ChatGPT Plus subscription and spending $33 on GPT 5.4/5.5 API tokens (May 2026 prices), I created an app that, when I enter "a toddler is walking down the hallway and falls," shows the video of my daughter's first steps as the very first search result.
+Fortunately, the time has passed, and I live in the AI age now. Using Codex with my ChatGPT Plus subscription and spending $33 on GPT API tokens (May 2026 prices), I created an app that, when I enter "a toddler is walking down the hallway and falls," shows the video of my daughter's first steps as the top search result (yes, this was an actual test case ✅).
 
-The visual language model processing is done as a batch job once and creates offline data, along with an Electron app Windows binaries folder. I can then copy the video archive and the app data folder to a removable drive and run the app from any Windows computer (it doesn't even need an internet connection).
+Even with AI, it wasn't a "one evening" project. I consider it worth sharing.
+
+The visual language model processing is done as a batch job once, creating offline data and an Electron app Windows binaries folder. I can then copy the video archive and the app folder to a removable drive and run the app from any Windows computer (it doesn't even need an internet connection).
 
 ## Intended use of this repository
 
