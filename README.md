@@ -2,16 +2,16 @@
 
 ## Motivation
 
-I have almost 4 thousand videos, most of them downloaded from an ancient DV tape camera about two decades ago. Back then, I stored them in folders named like `06 20031224-20040309`, and the files were named like `06 20031225-18.42.53.avi`.  
+I have almost 4,000 videos, most of them downloaded from an ancient DV tape camera about two decades ago. Back then, I stored them in folders named like `06 20031224-20040309`, and the files were named like `06 20031225-18.42.53.avi`.  
 When asked, "Play that video of our daughter's first steps", I don't know where to look.
 
 Does it sound familiar? :smile:
 
-Fortunately, the time has passed, and I live in the AI age now. I used Codex with my ChatGPT Plus subscription and spent $33 on GPT API tokens to process my video archive (price as of May 2026). I created an app that, when I enter "a toddler is walking down the hallway and falls," shows the video of my daughter's first steps as the top search result (yes, this was an actual test case; passed✅).
+The time has passed, and I live in the AI age now. I used Codex with my ChatGPT Plus subscription and spent $33 on GPT API tokens to process my video archive (price as of May 2026). I created an app that, when I enter "a toddler is walking down the hallway and falls," shows the video of my daughter's first steps as the top search result (yes, this was an actual test case; passed✅).
 
 Even with AI, it wasn't a "one evening" project. I consider it worth sharing.
 
-The visual language model processing is done as a batch job once (and can be re-run incrementally), creating offline data and an [Electron](https://www.electronjs.org/) app Windows binaries folder. I can then copy the video archive and the app folder to a removable drive and run the app from any Windows computer (it doesn't even need an internet connection). Electron is cross-platform, so this can be easily ported to other operating systems.
+The visual language model processing is done as a batch job once (and can be re-run incrementally), creating offline data and an [Electron](https://www.electronjs.org/) app Windows binaries folder. I can then copy the video archive and the app folder to a removable drive and run the app from any Windows computer. Electron framework is cross-platform, so this can be easily ported to other operating systems.
 
 ## Intended use of this repository
 
