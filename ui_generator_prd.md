@@ -951,7 +951,23 @@ Expected behavior:
 - unchanged embedding index is reused when source text hash is unchanged
 - changed or new embedding index is regenerated when source text changed
 
-## 14. Open Questions
+## 14. Language and Localization
+
+The current solution is intentionally Czech-first. The generated UI displays Czech video descriptions from `headline_cs` and `description_cs`, generates Czech day summaries, and uses Czech UI labels such as `délka`, `Nahrávám data`, and the Czech search score labels.
+
+To port the UI generator and generated Electron app to another language:
+
+- Decide whether to keep the existing JSON field names (`headline_cs`, `description_cs`) as stable internal fields, or rename them to language-specific fields such as `headline_en` and `description_en`.
+- If field names are changed, update the metadata loader, generated `videos.json` schema, video card rendering, day summary inputs, search embedding text construction, cache hashing, and any acceptance tests or fixtures that reference `headline_cs` and `description_cs`.
+- Update the day-summary prompt so GPT produces summaries in the target language.
+- Update all generated UI copy, including loading states, buttons, archive labels, score labels, duration labels, empty states, error messages, and launcher diagnostics.
+- Review date and time presentation. The current implementation accepts Czech/European folder date patterns and displays compact European date formatting; another locale may need different parsing examples, display format, or calendar wording.
+- Regenerate day summaries after changing the target language, because existing cached Czech summaries should not be reused as final output for another locale.
+- Regenerate video embeddings after changing the source text language or field mapping, because the embedded text content changes even though the search algorithm does not.
+
+The selected embedding model, `intfloat/multilingual-e5-small`, is multilingual. No change is required for the actual smart search vector logic, cosine/dot-product ranking, or query embedding flow when porting to another language. The main required search work is to rebuild embeddings from the translated or newly generated text and, if needed, adjust locale-specific lexical boosts and UI labels.
+
+## 15. Open Questions
 
 All major architecture decisions are currently closed. New open questions should be added only when implementation uncovers a concrete unresolved decision.
 

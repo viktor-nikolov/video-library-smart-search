@@ -934,14 +934,32 @@ Parallelization may be added later, but it is not required in this PRD.
 
 ---
 
-## 14. Technical Design Guidance for Codex
+## 14. Language and Localization
 
-### 14.1 Language and runtime
+The current solution is intentionally Czech-first. The VLM prompt asks for Czech output, the output schema uses `headline_cs` and `description_cs`, examples show Czech text, and downstream UI generation expects those two fields by default.
+
+To port the description generator to another language:
+
+- Update the `[prompting]` prompt so it explicitly requests the target language and describes the expected headline and description style in that language.
+- Decide whether to keep `headline_cs` and `description_cs` as stable internal field names, or rename them to language-specific names such as `headline_en` and `description_en`.
+- If field names are changed, update response validation, JSON repair prompts, output schema documentation, examples, tests, and any downstream consumers such as `ui_generator.py`.
+- If field names are kept for compatibility, document that the suffix no longer represents the content language, or consider adding a separate metadata field such as `language`.
+- Update sample config comments, acceptance criteria, and user-facing documentation so they refer to the target language instead of Czech.
+- Keep UTF-8 output handling unchanged. It is still required for accented characters and other non-ASCII text in most target languages.
+- Regenerate existing descriptions when changing the target language; mixed-language output should not be treated as one coherent search corpus unless that is an explicit product choice.
+
+The smart search embedding model used by the UI, `intfloat/multilingual-e5-small`, is multilingual. Porting the description language does not require changing the actual semantic search logic. After descriptions are regenerated in the new language, downstream embeddings should be rebuilt from the new text, but the vector search algorithm and embedding model can remain the same.
+
+---
+
+## 15. Technical Design Guidance for Codex
+
+### 15.1 Language and runtime
 
 - Target Python version: **3.12.3**
 - Target execution environment: **Linux**, but the script should remain Windows-compatible if paths and external tools are adjusted
 
-### 14.2 Recommended dependencies
+### 15.2 Recommended dependencies
 
 Likely dependencies include:
 
@@ -953,7 +971,7 @@ Optional but recommended:
 
 - `pydantic` or `jsonschema` for schema validation
 
-### 14.3 Implementation recommendations
+### 15.3 Implementation recommendations
 
 - Use `pathlib` for path handling.
 - Use `configparser` for INI parsing.
@@ -966,7 +984,7 @@ Optional but recommended:
 - Keep JSON writing atomic where practical (write temp file then replace).
 - Ignore local generated/debug artifacts in Git, including Python bytecode caches, `.bak` files, `debug_vlm_frames/`, `test_videos/`, `video_descr_generator.log`, and `video_descriptions.json`.
 
-### 14.4 Suggested processing flow per video
+### 15.4 Suggested processing flow per video
 
 1. Determine relative path.
 2. Read duration via `ffprobe`.
@@ -981,7 +999,7 @@ Optional but recommended:
 
 ---
 
-## 15. Acceptance Criteria
+## 16. Acceptance Criteria
 
 The implementation is acceptable when all of the following are true:
 
