@@ -2,7 +2,7 @@
 
 ## 1. Purpose
 
-After running `video_descr_generator.py`, the project has two production JSON outputs for two distinct video archives:
+After running `video_descr_generator.py`, the project has two production JSON outputs for, for example, two distinct video archives (the solution will work perfectly fine with a single video archive too):
 
 - SD archive: `D:\VideoLibrary\PrimaryArchive\`
 - HD archive: `D:\VideoLibrary\SecondaryArchive\`
@@ -86,7 +86,7 @@ Each archive root is resolved by a path relative to that primary archive root:
   {
     "archive_id": "HD",
     "label": "HD videa",
-    "relative_root": "..\\Video.HD"
+    "relative_root": "..\\SecondaryArchive"
   }
 ]
 ```
@@ -94,14 +94,14 @@ Each archive root is resolved by a path relative to that primary archive root:
 Example runtime path for an HD video:
 
 ```text
-..\Video.HD\100605\20100509122029.m2ts
+..\SecondaryArchive\100605\20100509122029.m2ts
 ```
 
 If both archives are copied to another drive, USB disk, or mapped network drive, the app continues to work as long as the relative relationship is preserved:
 
 ```text
-X:\DV Capture (stará videokamera)\__UI_data__\
-X:\Video.HD\
+X:\VideoLibrary\PrimaryArchive\__UI_data__\
+X:\VideoLibrary\SecondaryArchive\
 ```
 
 The production JSON outputs from `video_descr_generator.py` contain Linux-style relative paths using `/`. `ui_generator.py` normalizes them to Windows-style paths using `\` in generated UI data.
@@ -875,39 +875,39 @@ Attach or map the disk containing both archives so their relative layout is pres
 Example local disk or USB layout on the remote PC:
 
 ```text
-X:\DV Capture (stará videokamera)\__UI_data__\
-X:\Video.HD\
+X:\VideoLibrary\PrimaryArchive\__UI_data__\
+X:\VideoLibrary\SecondaryArchive\
 ```
 
 Example mapped network drive layout:
 
 ```text
-X:\DV Capture (stará videokamera)\__UI_data__\
-X:\Video.HD\
+X:\VideoLibrary\PrimaryArchive\__UI_data__\
+X:\VideoLibrary\SecondaryArchive\
 ```
 
 Run:
 
 ```bat
-X:\DV Capture (stará videokamera)\__UI_data__\run_ui.bat
+X:\VideoLibrary\PrimaryArchive\__UI_data__\run_ui.bat
 ```
 
 or, for a no-terminal launch:
 
 ```bat
-X:\DV Capture (stará videokamera)\__UI_data__\run_ui.vbs
+X:\VideoLibrary\PrimaryArchive\__UI_data__\run_ui.vbs
 ```
 
 If the app does not start from the remote PC, run:
 
 ```bat
-X:\DV Capture (stará videokamera)\__UI_data__\run_ui_debug.bat
+X:\VideoLibrary\PrimaryArchive\__UI_data__\run_ui_debug.bat
 ```
 
 Then inspect:
 
 ```text
-X:\DV Capture (stará videokamera)\__UI_data__\run_ui.log
+X:\VideoLibrary\PrimaryArchive\__UI_data__\run_ui.log
 ```
 
 Only `run_ui_debug.bat` creates `run_ui.log`; use `run_ui.bat` or `run_ui.vbs` for normal read-only media launches.
@@ -919,13 +919,13 @@ The first smart search can take longer on a remote PC because the bundled local 
 If videos do not open, confirm:
 
 - both archive folders are present
-- `Video.HD` is next to `DV Capture (stará videokamera)` at the same relative level
+- `SecondaryArchive` is next to `PrimaryArchive` at the same relative level
 - Windows has a default app associated with `.avi`, `.mov`, `.m2ts`, and `.mts`
 
 If search fails offline, confirm the model files are present:
 
 ```text
-X:\DV Capture (stará videokamera)\__UI_data__\app\transformers_cache\intfloat\multilingual-e5-small\
+X:\VideoLibrary\PrimaryArchive\__UI_data__\app\transformers_cache\intfloat\multilingual-e5-small\
 ```
 
 ### 13.5 Rebuild After New Video Descriptions

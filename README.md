@@ -2,29 +2,33 @@
 
 ## Motivation
 
-I have almost 4 thousand videos, most of them downloaded from an ancient DV tape camera two decades ago. Back then, I stored them in folders named like `06 20031224-20040309`, and the files were named like `06 20031225-18.42.53.avi`.  
+I have almost 4 thousand videos, most of them downloaded from an ancient DV tape camera about two decades ago. Back then, I stored them in folders named like `06 20031224-20040309`, and the files were named like `06 20031225-18.42.53.avi`.  
 When asked, "Play that video of our daughter's first steps", I don't know where to look.
 
 Does it sound familiar? :smile:
 
-Fortunately, the time has passed, and I live in the AI age now. Using Codex with my ChatGPT Plus subscription and spending $33 on GPT API tokens to process my video archive (May 2026 prices), I created an app that, when I enter "a toddler is walking down the hallway and falls," shows the video of my daughter's first steps as the top search result (yes, this was an actual test case ✅).
+Fortunately, the time has passed, and I live in the AI age now. I used Codex with my ChatGPT Plus subscription and spent $33 on GPT API tokens to process my video archive (price as of May 2026). I created an app that, when I enter "a toddler is walking down the hallway and falls," shows the video of my daughter's first steps as the top search result (yes, this was an actual test case; passed✅).
 
 Even with AI, it wasn't a "one evening" project. I consider it worth sharing.
 
-The visual language model processing is done as a batch job once (and can be re-run incrementally), creating offline data and an Electron app Windows binaries folder. I can then copy the video archive and the app folder to a removable drive and run the app from any Windows computer (it doesn't even need an internet connection).
+The visual language model processing is done as a batch job once (and can be re-run incrementally), creating offline data and an [Electron](https://www.electronjs.org/) app Windows binaries folder. I can then copy the video archive and the app folder to a removable drive and run the app from any Windows computer (it doesn't even need an internet connection). Electron is cross-platform, so this can be easily ported to other operating systems.
 
 ## Intended use of this repository
 
 The SW in this repository is not an application you install with one click, run, and configure in the UI.  
 What I'm sharing here is a tested, working, ready-for-big-batches concept that I created using an AI agent and is best used by another AI agent.
 
-Don't get me wrong. A sufficiently IT-knowledgeable person can use this repository manually. But I think it's unnecessarily difficult. There are two very detailed Product Requirement Documents. They are to provide agent memory for your AI agent session.
+Don't get me wrong. A sufficiently IT-knowledgeable person can use this repository for running the generating scripts manually. I did. But I think it's unnecessarily difficult. There are two very detailed Product Requirement Documents. They are to provide agent memory for your AI agent session.
 
-I recommend that you install an AI agent of your choice on a Windows machine and give it a prompt like this:
+I recommend that you install an AI agent of your choice on your PC and give it a prompt similar to this:
 
-`Study the repository https://github.com/viktor-nikolov/video-library-smart-search. I want to generate this video library browsing app on this PC. Clone the repository and run the necessary scripts for me. My video files are in folders <FILL FOLDER HERE> and <FILL ANOTHER FOLDER IF NEEDED>. Note that the scripts in the video-library-smart-search repository generate the app in Czech. I want the app (and the smart search feature) in <YOUR DESIRED LANGUAGE>, so you need to modify the scripts accordingly. Ask me if you need any additional information or a decision.`
+`Study the repository https://github.com/viktor-nikolov/video-library-smart-search. I want to generate this video library browsing app on this PC. Clone the repository and run the necessary scripts for me. The processing can take a long time, so you must inform me regularly of progress based on the script's console output or log file. My video files are in folders <FILL FOLDER HERE> and <FILL ANOTHER FOLDER IF NEEDED>. Before running on my whole video library, do a trial run using only files in <FOLDER WITH A FEW SELECTED VIDEOS> and let me check the outcome before proceeding further. Note that the scripts in the video-library-smart-search repository generate the app in Czech. I want the app (and the smart search feature) in <YOUR DESIRED LANGUAGE>, so you need to modify the scripts accordingly. Ask me if you need any additional information or a decision.`
 
-## What This Project Builds
+> [!TIP]
+>
+> The as-is version of the `ui_generator.py` script in this repository is designed to generate a Windows [Electron](https://www.electronjs.org/) app. If you use another operating system, tell your AI agent to update the script accordingly. The Electron framework is cross-platform.
+
+## What This Project Provides
 
 This repository contains two generator scripts for turning a local video archive into a searchable offline desktop library:
 
@@ -35,7 +39,7 @@ The scripts in this repository are intentionally file-based: the video archive s
 
 > [!IMPORTANT]
 >
-> I made the scripts to generate text descriptions and the app UI in Czech, my mother tongue. Changing this to a language of your choice will be a trivial task for your AI agent.
+> **I made the scripts to generate text descriptions and the app UI in Czech**, my mother tongue. Changing this to a language of your choice will be a trivial task for your AI agent.
 >
 > Smart search will work with text descriptions in almost any language. A locally run model used to generate numeric embeddings is multilingual (see list of supported languages [here](https://huggingface.co/intfloat/multilingual-e5-small/blob/main/README.md)).
 
